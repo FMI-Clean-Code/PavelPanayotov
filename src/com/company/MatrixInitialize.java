@@ -1,15 +1,11 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-public class Main {
+public class MatrixInitialize {
     private int sizeOfMatrix;
     int[][] matrix;
 
 
-    public Main(int sizeOfMatrix) {
+    public MatrixInitialize(int sizeOfMatrix) {
         this.sizeOfMatrix = sizeOfMatrix;
 
         matrix = new int[5][5];
@@ -22,7 +18,7 @@ public class Main {
     }
 
     private static void initializeMatrix() {
-        Main m = new Main(5);
+        MatrixInitialize m = new MatrixInitialize(5);
         m.printMatrix();
     }
 
@@ -38,5 +34,5 @@ public class Main {
     public static void main(String[] args) {
         initializeMatrix();
     }
-
+    
 }
