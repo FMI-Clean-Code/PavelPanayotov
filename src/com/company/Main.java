@@ -36,7 +36,8 @@ public class Main {
    }
 
     public static void main(String[] args) {
-        initializeMatrix();
+        FibChecker fibChecker=new FibChecker();
+        System.out.println(fibChecker.hasSpiral());
     }
 
 }
