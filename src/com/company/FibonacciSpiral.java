@@ -3,18 +3,18 @@ package com.company;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FibChecker {
+public class FibonacciSpiral {
     private ArrayList<Integer> buffer;
     private int matrix[][];
     private  int matrixSize;
-    public FibChecker(int[][] matrix){
+    public FibonacciSpiral(int[][] matrix){
         this.matrix=matrix;
         matrixSize=matrix.length;
         buffer=new ArrayList<>();
         buffer.add(1);
         buffer.add(1);
     }
-    public FibChecker(){
+    public FibonacciSpiral(){
         Scanner scanner=new Scanner(System.in);
         System.out.print("Enter matrix size :");
         int matrixSize=scanner.nextInt();
@@ -30,7 +30,6 @@ public class FibChecker {
         buffer.add(1);
     }
     boolean hasContourSpiral(ArrayList<Integer> contour){
-        if(matrixSize<2)return false;
         int maxElemAtIndex=0;
         for (int i = 1; i <contour.size() ; i++) {
             if(contour.get(i)>contour.get(maxElemAtIndex)){
@@ -41,14 +40,12 @@ public class FibChecker {
         if(maxFibIndex==-1)return false;
         int i;
         for (i = 1; i < contour.size(); i++) {
-            System.out.println(contour.get((maxElemAtIndex+i)%contour.size()) + " - > " + buffer.get(maxFibIndex-i));
 
             if(!contour.get((maxElemAtIndex+i)%contour.size()).equals(buffer.get(maxFibIndex-i)))break;
         }
         if(i==1){
             int j;
             for (j = 1; j <contour.size() ; j++) {
-                System.out.println(contour.get((contour.size()+maxElemAtIndex-j)%contour.size()) + " - > " + buffer.get(maxFibIndex-j));
                 if(!contour.get((contour.size()+maxElemAtIndex-j)%contour.size()).equals(buffer.get(maxFibIndex-j)))return false;
 
             }
@@ -79,7 +76,6 @@ public class FibChecker {
     private int binarySearchFib(int candidate){
         if(candidate>buffer.get(buffer.size()-1)) fillBuffer(candidate);
         int start =0;
-        System.out.println(buffer.get(buffer.size()-1));
         int end= buffer.size()-1;
         int mid;
         while(start<=end){
@@ -92,7 +88,8 @@ public class FibChecker {
         }
         return -1;
     }
-    public boolean hasFibSpiral(){
+    boolean hasFibSpiral(){
+        if(matrixSize<2)return false;
         for (int i = 0; i <matrixSize-1; i++) {
             for (int j = 0; j <matrixSize-1 ; j++) {
                 int maxQuadraticSubMatrixSize=Math.min(matrixSize-i,matrixSize-j);
