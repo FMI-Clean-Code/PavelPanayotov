@@ -54,23 +54,23 @@ public class FibonacciSpiral {
         }
         return clockwiseIteration==contour.size();
     }
-    ArrayList<Integer> getContour(int startX, int startY, int subMatrixSize){
+    ArrayList<Integer> getContour(int startRowIndex, int startColumnIndex, int subMatrixSize){
         ArrayList<Integer> contour=new ArrayList<>();
         //adds all top part contour elements of the submatrix
-        for (int i = startY; i <startY+subMatrixSize ; i++) {
-            contour.add(matrix[startX][i]);
+        for (int i = startColumnIndex; i <startColumnIndex+subMatrixSize ; i++) {
+            contour.add(matrix[startRowIndex][i]);
         }
         //adds all right part contour elements of the submatrix
-        for (int i = startX+1; i <startX+subMatrixSize ; i++) {
-            contour.add(matrix[i][startY+subMatrixSize-1]);
+        for (int i = startRowIndex+1; i <startRowIndex+subMatrixSize ; i++) {
+            contour.add(matrix[i][startColumnIndex+subMatrixSize-1]);
         }
         //adds all bottom contour elements of the submatrix in opposite order
-        for (int i = startY+subMatrixSize-2; i >=0 ; i--) {
-            contour.add(matrix[startX+subMatrixSize-1][i]);
+        for (int i = startColumnIndex+subMatrixSize-2; i >=0 ; i--) {
+            contour.add(matrix[startRowIndex+subMatrixSize-1][i]);
         }
         //adds all bottom contour elements of the submatrix in opposite order
-        for (int i = startX+subMatrixSize-2; i >0 ; i--) {
-            contour.add(matrix[i][startY]);
+        for (int i = startRowIndex+subMatrixSize-2; i >0 ; i--) {
+            contour.add(matrix[i][startColumnIndex]);
         }
         return contour;
     }
