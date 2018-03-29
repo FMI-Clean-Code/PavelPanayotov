@@ -7,7 +7,7 @@ public class FibonacciSpiral {
     private ArrayList<Integer> buffer;
     private int matrix[][];
     private  int matrixSize;
-    public FibonacciSpiral(int[][] matrix){
+    FibonacciSpiral(int[][] matrix){
         this.matrix=matrix;
         matrixSize=matrix.length;
         buffer=new ArrayList<>();
@@ -30,28 +30,29 @@ public class FibonacciSpiral {
         buffer.add(1);
     }
     boolean hasContourSpiral(ArrayList<Integer> contour){
-        int maxElemAtIndex=0;
+        int maxElemContourIndex=0;
         for (int i = 1; i <contour.size() ; i++) {
-            if(contour.get(i)>contour.get(maxElemAtIndex)){
-                maxElemAtIndex=i;
+            if(contour.get(i)>contour.get(maxElemContourIndex)){
+                maxElemContourIndex=i;
             }
         }
-        int maxFibIndex=binarySearchFib(contour.get(maxElemAtIndex));
-        if(maxFibIndex==-1)return false;
-        int i;
-        for (i = 1; i < contour.size(); i++) {
+        int maxElemFibBufferIndex= binarySearchFibonacciBuffer(contour.get(maxElemContourIndex));
+        if(maxElemFibBufferIndex==-1)return false;
+        int clockwiseIteration;
+        for (clockwiseIteration = 1; clockwiseIteration < contour.size(); clockwiseIteration++) {
 
-            if(!contour.get((maxElemAtIndex+i)%contour.size()).equals(buffer.get(maxFibIndex-i)))break;
+            if(!contour.get((maxElemContourIndex+clockwiseIteration)%contour.size()).equals(buffer.get(maxElemFibBufferIndex-clockwiseIteration)))break;
         }
-        if(i==1){
-            int j;
-            for (j = 1; j <contour.size() ; j++) {
-                if(!contour.get((contour.size()+maxElemAtIndex-j)%contour.size()).equals(buffer.get(maxFibIndex-j)))return false;
+        //if clockwiseIteration >1 then there won't be full fibonaci sequence iterated counter clockwise
+        if(clockwiseIteration==1){
+            int counterClockwiseIteration;
+            for (counterClockwiseIteration = 1; counterClockwiseIteration <contour.size() ; counterClockwiseIteration++) {
+                if(!contour.get((contour.size()+maxElemContourIndex-counterClockwiseIteration)%contour.size()).equals(buffer.get(maxElemFibBufferIndex-counterClockwiseIteration)))return false;
 
             }
-            return j==contour.size();
+            return counterClockwiseIteration==contour.size();
         }
-        return i==contour.size();
+        return clockwiseIteration==contour.size();
     }
     ArrayList<Integer> getContour(int startX, int startY, int subMatrixSize){
         ArrayList<Integer> contour=new ArrayList<>();
@@ -73,20 +74,19 @@ public class FibonacciSpiral {
         }
         return contour;
     }
-    private int binarySearchFib(int candidate){
+    private int binarySearchFibonacciBuffer(int candidate){
         if(candidate>buffer.get(buffer.size()-1)) fillBuffer(candidate);
         int start =0;
         int end= buffer.size()-1;
-        int mid;
         while(start<=end){
-            mid = (start+end)/2;
+            int mid = (start+end)/2;
             if(candidate== buffer.get(mid))return mid;
             else if (candidate < buffer.get(mid)) {
                 end = mid-1;
             }
             else start=mid+1;
         }
-        return -1;
+        return -1;//if not found
     }
     boolean hasFibSpiral(){
         if(matrixSize<2)return false;
@@ -107,9 +107,12 @@ public class FibonacciSpiral {
 
         if(upperBound>= buffer.get(buffer.size()-1))
             while(upperBound>= buffer.get(buffer.size()-1)){
-                buffer.add(
-                        buffer.get(buffer.size()-1) +
-                                buffer.get(buffer.size()-2));
+                int previousFibonacciNumber=buffer.get(buffer.size()-2);
+                int currentFibonacciNumber=buffer.get(buffer.size()-1);
+//                buffer.add(
+//                        buffer.get(buffer.size()-1) +
+//                                buffer.get(buffer.size()-2));
+                buffer.add(previousFibonacciNumber+currentFibonacciNumber);
             }
         }
     }

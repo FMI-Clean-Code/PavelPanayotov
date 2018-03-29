@@ -9,15 +9,16 @@ import java.util.ArrayList;
 public class testFibSpiral {
     private FibonacciSpiral fibonacciSpiral;
     private int matrix[][];
-
+    // 1 1
+    // 3 2
     @Before
-    public void init(){
-        matrix= new int[2][2];
-        matrix[0][0]=1;
-        matrix[0][1]=1;
-        matrix[1][1]=2;
-        matrix[1][0]=3;
-        fibonacciSpiral =new FibonacciSpiral(matrix);
+    public void init() {
+        matrix = new int[2][2];
+        matrix[0][0] = 1;
+        matrix[0][1] = 1;
+        matrix[1][1] = 2;
+        matrix[1][0] = 3;
+        fibonacciSpiral = new FibonacciSpiral(matrix);
 
     }
     @Test
